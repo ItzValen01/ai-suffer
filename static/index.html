@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Suffer</title>
+<link rel="stylesheet" href="/css/style.css?v=33">
+</head>
+<body>
+
+<div id="crt-overlay"></div>
+<div id="low-hp-vignette"></div>
+
+<main id="app">
+
+  <!-- HEADER / TERMINAL BAR -->
+  <div class="termbar">
+    <span class="termbar-dot red"></span>
+    <span class="termbar-dot yellow"></span>
+    <span class="termbar-dot green"></span>
+    <span class="termbar-title">dev@localhost: ~/ai_suffer</span>
+  </div>
+
+  <!-- PANTALLA: MENU -->
+  <section id="screen-menu" class="screen active">
+    <div class="ascii-logo" aria-label="AI SUFFER">
+      <div class="logo-frame">
+        <span class="logo-corner tl"></span><span class="logo-corner tr"></span>
+        <img class="logo-title" src="/img/logo-title-pixel.png" alt="AI SUFFER">
+        <div class="logo-subtitle">-- sube la torre. sufre. repite. --</div>
+        <span class="logo-corner bl"></span><span class="logo-corner br"></span>
+      </div>
+    </div>
+    <p class="tagline">tu commit favorito estuvo a punto de romper prod. ahora, sube la torre, gana niveles piso a piso, y demuestra que un humano todavia sirve para algo.</p>
+
+    <div class="menu-box">
+      <label for="player-name">$ whoami</label>
+      <input id="player-name" maxlength="16" placeholder="tu_nombre_de_dev" autocomplete="off">
+
+      <div class="difficulty-picker">
+        <label for="difficulty-select">$ difficulty -- seleccionar nivel</label>
+        <select id="difficulty-select">
+          <option value="easy">FÁCIL</option>
+          <option value="normal">NORMAL</option>
+          <option value="hard">DIFÍCIL</option>
+          <option value="hacker">HACKER</option>
+        </select>
+        <div id="difficulty-info" class="difficulty-info">La experiencia actual. Una buena puerta de entrada.</div>
+      </div>
+
+      <button id="btn-start" class="btn-primary">&gt; INICIAR_PARTIDA</button>
+      <button id="btn-pets" class="btn-secondary">&gt; PETS // colección</button>
+      <button id="btn-achievements" class="btn-secondary">&gt; LOGROS // progreso</button>
+      <button id="btn-customize" class="btn-secondary">&gt; CUSTOMIZE // personaje</button>
+      <button id="btn-howto" class="btn-secondary tutorial-menu-btn">&gt; aprender a jugar</button>
+      <button id="btn-scores" class="btn-secondary">&gt; top_hackers.json</button>
+    </div>
+
+    <div class="sound-toggle">
+      <label><input type="checkbox" id="sound-check" checked> música y sonido activados</label>
+    </div>
+  </section>
+
+  <!-- PANTALLA: CUSTOMIZACIÓN -->
+  <section id="screen-customize" class="screen">
+    <div class="customize-shell">
+      <div class="customize-header">
+        <div><p class="floor-label">CHARACTER SYSTEM // CUSTOMIZE</p><h2>Personalizá tu avatar</h2><p class="lore">Elegí el color principal del personaje. El cambio queda guardado en tu perfil.</p></div>
+        <button id="btn-customize-back" class="btn-secondary">&lt; volver</button>
+      </div>
+      <div class="customize-grid">
+        <div class="customize-preview"><div class="customize-preview-label">LIVE PREVIEW</div><div id="customize-avatar" class="customize-avatar"><span></span></div><div id="customize-hex" class="customize-hex">#39FF88</div></div>
+        <div class="customize-controls">
+          <label for="player-color">$ color -- seleccionar</label>
+          <input id="player-color" type="color" value="#39ff88" aria-label="Color del personaje">
+          <div class="color-presets" id="color-presets">
+            <button type="button" class="color-swatch" data-color="#39ff88" style="--swatch:#39ff88" aria-label="Verde"></button>
+            <button type="button" class="color-swatch" data-color="#67e8ff" style="--swatch:#67e8ff" aria-label="Cian"></button>
+            <button type="button" class="color-swatch" data-color="#c084fc" style="--swatch:#c084fc" aria-label="Violeta"></button>
+            <button type="button" class="color-swatch" data-color="#ffd166" style="--swatch:#ffd166" aria-label="Amarillo"></button>
+            <button type="button" class="color-swatch" data-color="#ff6b9d" style="--swatch:#ff6b9d" aria-label="Rosa"></button>
+            <button type="button" class="color-swatch" data-color="#ff8a5c" style="--swatch:#ff8a5c" aria-label="Naranja"></button>
+          </div>
+          <button id="btn-save-color" class="btn-primary">&gt; guardar_color</button>
+          <p id="customize-status" class="customize-status">Cambios locales listos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANTALLA: PETS -->
+  <section id="screen-pets" class="screen">
+    <div class="pets-shell">
+      <div class="pets-header">
+        <div><p class="floor-label">PET SYSTEM // COLLECTION</p><h2>Compañeros de ejecución</h2><p class="lore">Cada pet aporta un beneficio y una habilidad exclusiva. Los desbloqueos se guardan en tu perfil del servidor.</p></div>
+        <button id="btn-pets-back" class="btn-secondary">&lt; volver</button>
+      </div>
+      <div id="pets-list" class="pets-collection"></div>
+    </div>
+  </section>
+
+  <!-- PANTALLA: LOGROS -->
+  <section id="screen-achievements" class="screen achievements-screen">
+    <div class="achievements-shell">
+      <div class="achievements-header">
+        <div><p class="floor-label">ACHIEVEMENT SYSTEM // PROGRESS</p><h2>Protocolos completados</h2><p class="lore">Los logros se desbloquean en el servidor. Los primeros enseñan las bases; los últimos exigen dominar la torre, las builds y las dificultades altas.</p></div>
+        <button id="btn-achievements-back" class="btn-secondary">&lt; volver</button>
+      </div>
+      <div id="achievements-list" class="achievements-collection"></div>
+    </div>
+  </section>
+
+  <!-- PANTALLA: TUTORIAL -->
+  <section id="screen-howto" class="screen tutorial-screen">
+    <div class="tutorial-shell">
+      <aside class="tutorial-sidebar" aria-label="Progreso del tutorial">
+        <div class="tutorial-brand"><span class="tutorial-brand-dot"></span><div><strong>AI SUFFER</strong><small>BOOTCAMP // 01</small></div></div>
+        <div class="tutorial-progress-head"><span>TUTORIAL</span><span id="tutorial-progress-text">01 / 06</span></div>
+        <div class="tutorial-progress"><span id="tutorial-progress-fill"></span></div>
+        <nav id="tutorial-nav" class="tutorial-nav">
+          <button class="tutorial-step active" data-step="0"><b>01</b><span>La misión</span></button>
+          <button class="tutorial-step" data-step="1"><b>02</b><span>Moverte y saltar</span></button>
+          <button class="tutorial-step" data-step="2"><b>03</b><span>Apuntar y disparar</span></button>
+          <button class="tutorial-step" data-step="3"><b>04</b><span>Sobrevivir</span></button>
+          <button class="tutorial-step" data-step="4"><b>05</b><span>Mejoras y Scrap</span></button>
+          <button class="tutorial-step" data-step="5"><b>06</b><span>La Torre</span></button>
+        </nav>
+        <div class="tutorial-tip"><span>TIP</span><p>Aprendé una mecánica por vez. No necesitás memorizar todo para empezar.</p></div>
+      </aside>
+
+      <div class="tutorial-main">
+        <header class="tutorial-header">
+          <div><span id="tutorial-kicker" class="tutorial-kicker">BOOT SEQUENCE</span><h2 id="tutorial-title">Tu objetivo: sobrevivir</h2></div>
+          <button id="tutorial-close" class="tutorial-close" aria-label="Volver">ESC · salir</button>
+        </header>
+
+        <div id="tutorial-content" class="tutorial-content"></div>
+
+        <footer class="tutorial-footer">
+          <button id="tutorial-back" class="btn-secondary tutorial-nav-btn">← anterior</button>
+          <div class="tutorial-dots" id="tutorial-dots"></div>
+          <button id="tutorial-next" class="btn-primary tutorial-nav-btn">siguiente →</button>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANTALLA: TOP SCORES -->
+  <section id="screen-scores" class="screen">
+    <h2>&gt; cat top_hackers.json</h2>
+    <div id="scores-list" class="scores-list">
+      <p class="dim">cargando...</p>
+    </div>
+    <button class="btn-secondary back-btn">&lt; volver</button>
+  </section>
+
+  <!-- PANTALLA: TRANSICION DE PISO -->
+  <section id="screen-floor" class="screen">
+    <div class="floor-transition">
+      <p class="floor-label" id="floor-label">PISO 1 / 6</p>
+      <h2 id="floor-boss-name">???</h2>
+      <p id="floor-boss-quote" class="floor-quote">"..."</p>
+      <div class="floor-meta"><span id="floor-scrap">SCRAP 0</span><span>TORRE // RUTA ACTIVA</span></div>
+      <div id="tower-map" class="tower-map"></div>
+      <button id="btn-floor-continue" class="btn-primary">&gt; ENTRAR AL PISO</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA: SUBIDA DE NIVEL (al entrar al ascensor) -->
+  <section id="screen-levelup" class="screen">
+    <p class="floor-label" id="levelup-label">NIVEL 2</p>
+    <h2 class="levelup-title" id="levelup-title">Piso superado — elige una mejora</h2>
+    <p class="levelup-sub" id="levelup-sub">El ascensor espera. Elige un upgrade antes de subir.</p>
+    <div id="levelup-cards" class="levelup-cards"></div>
+    <div class="levelup-actions"><button id="btn-repair" class="btn-secondary">&gt; reparar +35 HP · 60 SCRAP</button><button id="btn-reroll" class="btn-secondary">&gt; cambiar opciones · 75 SCRAP</button></div>
+    <div id="levelup-build" class="levelup-build"></div>
+    <div class="shop-panel"><div class="shop-heading"><span>SCRAP MARKET</span><span id="shop-scrap">SCRAP 0</span></div><div id="shop-items" class="shop-items"></div></div>
+  </section>
+
+  <!-- PANTALLA: JUEGO -->
+  <section id="screen-game" class="screen">
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-statline"><span class="hud-label">HP</span><span class="hud-mini" id="hud-scrap">SCRAP 0</span></div>
+        <div class="bar player-bar"><div id="player-hp-fill" class="bar-fill"></div></div>
+        <div class="bar shield-bar"><div id="player-shield-fill" class="bar-fill"></div></div>
+      </div>
+      <div class="hud-mid"><div id="hud-stage-label">CAMINO AL SERVIDOR</div><div id="hud-dash" class="hud-dash">DASH —</div><div id="hud-pet" class="hud-dash">PET —</div><div id="hud-simsimi" class="hud-dash hud-simsimi"></div></div>
+      <div class="hud-right">
+        <span class="hud-label" id="boss-name-label" style="display:none">JEFE</span>
+        <div class="bar boss-bar" id="boss-bar-wrap" style="display:none"><div id="boss-hp-fill" class="bar-fill boss-fill"></div></div>
+      </div>
+    </div>
+    <div class="arena-wrap">
+      <canvas id="game-canvas" width="960" height="540"></canvas>
+      <div id="boss-intro-overlay" aria-hidden="true">
+        <div class="boss-intro-scanlines"></div>
+        <div class="boss-intro-corners"></div>
+        <div class="boss-intro-content">
+          <div id="boss-intro-kicker" class="boss-intro-kicker">PISO 1 // PROCESO HOSTIL DETECTADO</div>
+          <div class="boss-intro-warning">⚠ BOSS ENCOUNTER ⚠</div>
+          <h2 id="boss-intro-name">JEFE</h2>
+          <p id="boss-intro-quote">"..."</p>
+          <div id="boss-intro-meta" class="boss-intro-meta">HP 000 · PROTOCOLO 00 · PREPARATE</div>
+          <div class="boss-intro-bar"><span></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="mobile-hint">A/D o ←/→ mover · ESPACIO/W saltar · SHIFT dash · CLIC IZQUIERDO apuntar/disparar · J/Z también dispara · 1-5 cambiar arma (5 = TRAP)</p>
+  </section>
+
+  <!-- PANTALLA: EVENTO ALEATORIO -->
+  <section id="screen-event" class="screen">
+    <p class="floor-label">EVENT // ANOMALÍA DETECTADA</p>
+    <h2 id="event-title" class="event-title">CACHE OLVIDADA</h2>
+    <p id="event-desc" class="lore">...</p>
+    <div id="event-options" class="event-options"></div>
+  </section>
+
+  <!-- PANTALLA: PAUSA -->
+  <section id="screen-pause" class="screen">
+    <div class="pause-box">
+      <h2>&gt; PAUSA</h2>
+      <button id="btn-resume" class="btn-primary">&gt; continuar</button>
+      <button id="btn-pause-tutorial" class="btn-secondary">&gt; ver tutorial</button>
+      <button id="btn-quit" class="btn-secondary">&gt; salir al menu</button>
+    </div>
+  </section>
+
+  <!-- PANTALLA: GAME OVER -->
+  <section id="screen-gameover" class="screen">
+    <h2 class="glitch-text">SEGMENTATION FAULT</h2>
+    <div id="gameover-stats" class="run-stats"></div>
+    <p id="gameover-msg" class="lore">Tu proceso fue terminado en el piso X.</p>
+    <button id="btn-retry" class="btn-primary">&gt; reintentar</button>
+    <button id="btn-gameover-menu" class="btn-secondary">&gt; menu</button>
+  </section>
+
+  <!-- PANTALLA: VICTORIA -->
+  <section id="screen-win" class="screen">
+    <h2 class="win-text">git push --force (contra la superinteligencia)</h2>
+    <p id="win-lore" class="lore">Venciste a las seis IAs. El código sigue vivo, y sigue siendo tuyo. Por ahora.</p>
+    <p id="win-score" class="win-score">Puntaje: 0</p>
+    <div id="win-stats" class="run-stats"></div>
+    <div class="menu-box">
+      <input id="win-name" maxlength="16" placeholder="tu_nombre_de_dev" autocomplete="off">
+      <button id="btn-submit-score" class="btn-primary">&gt; guardar_puntaje</button>
+    </div>
+    <button id="btn-newgameplus" class="btn-primary">&gt; NEW_GAME+</button>
+    <button id="btn-win-menu" class="btn-secondary">&gt; menu</button>
+  </section>
+
+</main>
+
+<script src="/js/game.js?v=33"></script>
+</body>
+</html>

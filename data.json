@@ -1,0 +1,41 @@
+{
+  "scores": null,
+  "profiles": {
+    "anonimo": {
+      "name": "Anonimo",
+      "bestScore": 7343,
+      "bestFloor": 6,
+      "bestCombo": 16,
+      "mostKills": 72,
+      "fastestWin": 201.44419999999926,
+      "runs": 6,
+      "wins": 1,
+      "totalKills": 99,
+      "totalScrap": 1028,
+      "unlockedPets": [
+        "byte"
+      ],
+      "selectedPet": "",
+      "hardBossWins": 0,
+      "hackerWins": 0,
+      "hackerBossWins": 0,
+      "bossWins": 7,
+      "perfectBossWins": 6,
+      "bestAccuracy": 100,
+      "enemyDodges": 192,
+      "bossDodges": 13,
+      "unlockedAchievements": [
+        "boot_sequence",
+        "floor_runner",
+        "clean_code",
+        "first_boss",
+        "tower_runner",
+        "untouchable",
+        "marksman",
+        "speedrunner",
+        "evasive_protocol"
+      ],
+      "lastSeen": "2026-09-30T18:16:01-03:00"
+    }
+  }
+}
