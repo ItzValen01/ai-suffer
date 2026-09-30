@@ -21,7 +21,7 @@ The Go version is declared in `go.mod`, so the project and its contributors use 
 Clone the repository and enter the project directory:
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone https://github.com/ItzValen01/ai-suffer
 cd ai-suffer-v33
 ```
 
