@@ -22,7 +22,7 @@ Clone the repository and enter the project directory:
 
 ```bash
 git clone https://github.com/ItzValen01/ai-suffer
-cd ai-suffer-v33
+cd ai-suffer
 ```
 
 Verify your Go installation:
